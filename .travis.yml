@@ -17,4 +17,5 @@ install:
 before_script:
     - mysql -e 'create database name_test;'
 script:
+    - env
     - tox -e $TOX_ENV -- --capture=no
