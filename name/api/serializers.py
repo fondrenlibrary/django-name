@@ -89,7 +89,7 @@ class NameSerializer(serializers.ModelSerializer):
     notes = NoteSerializer(many=True, source='note_set')
     variants = VariantSerializer(many=True, source='variant_set')
     identifier = serializers.HyperlinkedIdentityField(
-        view_name='name_entry_detail', lookup_field='name_id')
+        view_name='name:entry-detail', lookup_field='name_id')
 
     class Meta:
         model = models.Name
@@ -122,7 +122,7 @@ class NameSearchSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
     label = serializers.SerializerMethodField()
     URL = serializers.HyperlinkedIdentityField(
-        view_name='name_entry_detail', lookup_field='name_id')
+        view_name='name:entry-detail', lookup_field='name_id')
 
     class Meta:
         model = models.Name

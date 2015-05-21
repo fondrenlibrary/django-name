@@ -404,7 +404,7 @@ class Name(models.Model):
         return markdown2.markdown(self.biography)
 
     def get_absolute_url(self):
-        return reverse('name_entry_detail', args=[self.name_id])
+        return reverse('name:entry-detail', args=[self.name_id])
 
     def has_schema_url(self):
         return self.get_schema_url() is not None

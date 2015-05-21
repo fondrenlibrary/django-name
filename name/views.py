@@ -27,7 +27,7 @@ def label(request, name_value):
         name = Name.objects.get(normalized_name=normalized_name)
 
         return http.HttpResponseRedirect(
-            reverse('name_entry_detail', args=[name.name_id]))
+            reverse('name:entry-detail', args=[name.name_id]))
 
     except Name.DoesNotExist:
         return http.HttpResponseNotFound(
@@ -93,8 +93,8 @@ def opensearch(request):
     search_json_query = '{0}?q={{searchTerms}}'
 
     # Build the absolute URLs.
-    search_url = request.build_absolute_uri(reverse('name_search'))
-    search_json_url = request.build_absolute_uri(reverse('name_names'))
+    search_url = request.build_absolute_uri(reverse('name:search'))
+    search_json_url = request.build_absolute_uri(reverse('name:names'))
 
     # Compose the full URLs that will be sent to the template.
     search = search_query.format(search_url)
