@@ -16,7 +16,9 @@ install_requires = [
     'python-dateutil',
     'markdown2',
     'djangorestframework >= 3.1',
-    'pynaco == 0.1.0'
+    'pynaco == 0.1.0',
+    'python-ldap == 2.4.20',
+    'django-auth-ldap == 1.2.6'
 ]
 
 setup(

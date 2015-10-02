@@ -76,6 +76,7 @@ class Note(models.Model):
     DELETION_INFORMATION = 1
     NONPUBLIC = 2
     SOURCE = 3
+    SCOPE_NOTE = 5
     OTHER = 4
 
     NOTE_TYPE_CHOICES = (
@@ -83,6 +84,7 @@ class Note(models.Model):
         (DELETION_INFORMATION, 'Deletion Information'),
         (NONPUBLIC, 'Nonpublic'),
         (SOURCE, 'Source'),
+        (SCOPE_NOTE, 'Scope Note'),
         (OTHER, 'Other')
     )
 
@@ -222,8 +224,11 @@ class NameManager(models.Manager):
             'personal': len(filter(lambda n: n.is_personal(), names)),
             'organization': len(filter(lambda n: n.is_organization(), names)),
             'event': len(filter(lambda n: n.is_event(), names)),
+            'subject': len(filter(lambda n: n.is_subject(), names)),
+            'building': len(filter(lambda n: n.is_building(), names)),
+            'place': len(filter(lambda n: n.is_place(), names)),
             'software': len(filter(lambda n: n.is_software(), names)),
-            'building': len(filter(lambda n: n.is_building(), names))
+            
         }
 
     def _counts_per_month(self, date_column):
@@ -274,15 +279,21 @@ class Name(models.Model):
     PERSONAL = 0
     ORGANIZATION = 1
     EVENT = 2
-    SOFTWARE = 3
+    SUBJECT = 3
     BUILDING = 4
+    PLACE = 5
+    SOFTWARE = 6
+    
 
     NAME_TYPE_CHOICES = (
-        (PERSONAL, 'Personal'),
+        (PERSONAL, 'Person'),
         (ORGANIZATION, 'Organization'),
         (EVENT, 'Event'),
-        (SOFTWARE, 'Software'),
-        (BUILDING, 'Building')
+        (SUBJECT, 'Subject'),
+        (BUILDING, 'Building'),
+        (PLACE, 'Place'),
+        
+        
     )
 
     DATE_DISPLAY_LABELS = {
@@ -311,6 +322,18 @@ class Name(models.Model):
             'begin': 'Erected Date',
             'end': 'Demolished Date',
         },
+        SUBJECT: {
+            'type': 'Subject',
+            'begin': 'Begin Date',
+            'end': 'End Date',
+        },
+        
+        PLACE: {
+            'type': 'Subject',
+            'begin': 'Begin Date',
+            'end': 'End Date',
+        },
+        
         None: {
             'type': None,
             'begin': 'Born/Founded Date',
@@ -321,7 +344,11 @@ class Name(models.Model):
     NAME_TYPE_SCHEMAS = {
         PERSONAL: 'http://schema.org/Person',
         ORGANIZATION: 'http://schema.org/Organization',
-        BUILDING: 'http://schema.org/Place'
+        SUBJECT:  'http://schema.org/Person',
+        BUILDING: 'http://schema.org/Place',
+        PLACE: 'http://schema.org/Place',
+        EVENT: 'http://schema.org/Event'
+        
     }
 
     name = models.CharField(
@@ -436,6 +463,14 @@ class Name(models.Model):
     def is_building(self):
         """True if the Name has the Name Type Building."""
         return self._is_name_type(self.BUILDING)
+        
+    def is_subject(self):
+        """True if the Name has the Name Type Subject."""
+        return self._is_name_type(self.SUBJECT)
+    
+    def is_place(self):
+        """True if the Name has the Name Type Subject."""
+        return self._is_name_type(self.PLACE)
 
     def _is_record_status(self, status_id):
         """Test if the instance of Name has a particular

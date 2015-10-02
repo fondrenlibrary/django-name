@@ -57,8 +57,9 @@ def resolve_type(q_type):
     up the ID of the Name Type based on the string and return a list
     of Name Type IDs.
     """
-    if not q_type:
+    if not q_type: 
         return []
+        
 
     q_type = q_type.split(',')
 
@@ -76,16 +77,19 @@ def filter_names(request):
     name_types = resolve_type(request.GET.get('q_type', None))
 
     # Retrieve the visible names from the database.
+    
     names = Name.objects.visible()
+    
 
     # Filter by name type if it is passed with the request.
     if name_types:
         names = names.filter(name_type__in=name_types)
-
+        
     # Do further filtering if the q parameter is present.
     if q:
         # All names that fit query OR all variants that contain query
         query_filter = compose_query(q) | Q(variant__variant__icontains=q)
         names = names.filter(query_filter).distinct()
-
+    
+   
     return names

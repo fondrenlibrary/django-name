@@ -75,6 +75,7 @@ def export(request):
     for n in Name.objects.visible():
         writer.writerow([
             n.get_name_type_label().lower(),
+            #n.name_type,
             n.name.encode('utf-8'),
             request.build_absolute_uri(n.get_absolute_url())
         ])
@@ -171,3 +172,16 @@ def mads_serialize(request, name_id):
 
     return render(request, 'name/name.mads.xml',
                   context, content_type='text/xml')
+                  
+def skos_serialize(request, name_id):
+    """Renders the Name serialized into the SKOS-RDF format."""
+    queryset = (
+        Name.objects.select_related()
+        .prefetch_related('identifier_set__type', 'note_set', 'variant_set')
+    )
+
+    context = dict(name=get_object_or_404(queryset, name_id=name_id))
+
+    return render(request, 'name/name.skos.xml',
+                  context, content_type='text/xml')
+

@@ -41,7 +41,7 @@
             </td>
         </tr>
         <tr>
-            <th>Name Type:</th>
+            <th>Label Type:</th>
             <td>{{ name.get_name_type_label }}</td>
         </tr>
 
@@ -201,7 +201,8 @@
 
     <h3>Alternate Formats</h3>
     <div>
-        <a class="btn btn-default" href="{% url "name:mads-serialize" name.name_id %}">MADS/XML</a>
+        <!-- <a class="btn btn-default" href="{% url "name:mads-serialize" name.name_id %}">MADS/XML</a> --><!--removed upon Scott's request-->
         <a class="btn btn-default" href="{% url "name:detail-json" name.name_id %}">JSON</a>
+        <a class="btn btn-default" href="{% url "name:skos-serialize" name.name_id %}">SKOS-RDF</a>
     </div>
 {% endblock content %}
