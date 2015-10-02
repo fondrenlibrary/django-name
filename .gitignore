@@ -2,10 +2,14 @@
 *.swp
 *.swo
 *.egg-info
+TestHeadings*
+docker-compose.yml
+mass*.py
 dist/
 .tox
 db.sqlite3
 tests/__pycache__
+tests/settings/dev.py
 .coverage
 htmlcov/
 

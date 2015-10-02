@@ -22,15 +22,15 @@
                 <caption>Total Record Count</caption>
                 {% if counts.personal > 0 %}
                     <tr>
-                        <th>Personal Names:</th>
+                        <th>People:</th>
                         <td>
-                            <a href="{% url "name:search" %}?q_type=Personal&amp;q=">{{ counts.personal|intcomma }}</a>
+                            <a href="{% url "name:search" %}?q_type=Person&amp;q=">{{ counts.personal|intcomma }}</a>
                         </td>
                     </tr>
                 {% endif %}
                 {% if counts.organization > 0 %}
                     <tr>
-                        <th>Organization Names:</th>
+                        <th>Organizations:</th>
                         <td>
                             <a href="{% url "name:search" %}?q_type=Organization&amp;q">{{ counts.organization|intcomma }}</a>
                         </td>
@@ -38,7 +38,7 @@
                 {% endif %}
                 {% if counts.event > 0 %}
                     <tr>
-                        <th>Event Names:</th>
+                        <th>Events:</th>
                         <td>
                             <a href="{% url "name:search" %}?q_type=Event&amp;q=">{{ counts.event|intcomma }}</a>
                         </td>
@@ -54,14 +54,30 @@
                 {% endif %}
                 {% if counts.building > 0 %}
                     <tr>
-                        <th>Building Names:</th>
+                        <th>Rice Buildings:</th>
                         <td>
                             <a href="{% url "name:search" %}?q_type=Building&amp;q=">{{ counts.building|intcomma }}</a>
                         </td>
                     </tr>
                 {% endif %}
+                {% if counts.subject > 0 %}
+                    <tr>
+                        <th>Subjects:</th>
+                        <td>
+                            <a href="{% url "name:search" %}?q_type=Subject&amp;q=">{{ counts.subject|intcomma }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if counts.place > 0 %}
+                    <tr>
+                        <th>Places:</th>
+                        <td>
+                            <a href="{% url "name:search" %}?q_type=Place&amp;q=">{{ counts.place|intcomma }}</a>
+                        </td>
+                    </tr>
+                {% endif %}
                 <tr>
-                    <th>Total Names:</th>
+                    <th>Total Records:</th>
                     <td>{{ counts.total|intcomma }}</td>
                 </tr>
             </table>

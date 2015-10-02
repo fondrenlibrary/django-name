@@ -10,6 +10,7 @@
                     <h3>Search {{ name_app_title }}</h3>
                     <form class="form form-inline" action="{% url "name:search" %}">
                         <select class="form-control" name="q_type" id="large_q_type">
+                         <option value="">Any Type</option>
                             {% for k, v in name_types.items %}
                                 {% if request.GET.q_type == v %}
                                     <option value="{{ v }}" selected>{{ v }}</option>

@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'stats/$', views.stats, name='stats'),
     url(r'(?P<name_id>.*).json$', api.name_json, name='detail-json'),
     url(r'(?P<name_id>.*).mads.xml$', views.mads_serialize, name='mads-serialize'),
+    url(r'(?P<name_id>.*).skos.rdf$', views.skos_serialize, name='skos-serialize'),
     url(r'(?P<name_id>[^/]+)/', views.detail, name='detail')
 ]

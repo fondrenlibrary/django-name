@@ -81,9 +81,9 @@ class NameSerializer(serializers.ModelSerializer):
     The identifier field is the absolute url to the name detail
     page for the model instance.
     """
-    authoritative_name = serializers.CharField(source='name')
-    begin_date = serializers.CharField(source='begin')
-    name_type = serializers.SerializerMethodField()
+    authoritative_label = serializers.CharField(source='name')
+    begin_date = serializers.CharField(source='begin') 
+    label_type = serializers.SerializerMethodField() #substitute label_type for name_type
     end_date = serializers.CharField(source='end')
     links = IdentifierSerializer(many=True, source='identifier_set')
     notes = NoteSerializer(many=True, source='note_set')
@@ -93,11 +93,11 @@ class NameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Name
-        fields = ('authoritative_name', 'name_type', 'begin_date', 'end_date',
-                  'identifier', 'links', 'notes', 'variants',)
+        fields = ('authoritative_label', 'label_type', 'begin_date', 'end_date',
+                  'identifier', 'links', 'notes', 'variants',) #substitute label_type for name_type
 
-    def get_name_type(self, obj):
-        """Sets the name_type field.
+    def get_label_type(self, obj):
+        """substitute label_type for name_type. Sets the name_type field.
 
         Returns the Name Type label, instead of the Name Type ID, which
         is the default behavior.
